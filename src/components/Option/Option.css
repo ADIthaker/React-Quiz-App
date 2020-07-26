@@ -1,0 +1,11 @@
+
+.option{
+    border: 2px solid #bbb;
+    padding: 12px 16px;
+    margin: 0 auto;
+    margin-top:1rem;
+    height: 50px;
+    width:82%;
+    text-align: start;
+    font-family: 'Raleway', sans-serif;
+}

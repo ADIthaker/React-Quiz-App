@@ -1,0 +1,26 @@
+
+*{
+    box-sizing: border-box;
+}
+.qcard{
+    width:800px;
+    height:500px;
+    margin:auto;
+    margin-top:3rem;
+    padding:20px;
+    border : 1px solid black;  
+}
+
+@media (max-width:850px){
+    .qcard{
+        width:600px;
+        height:550px;
+    }
+}
+@media (max-width:600px){
+    .qcard{
+        width:325px;
+        height:670px;
+        margin-bottom: 1rem;   
+    }
+}
