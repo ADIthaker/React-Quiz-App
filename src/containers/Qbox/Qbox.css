@@ -19,6 +19,9 @@
     margin-top:1.1rem;
     
 }
+.optsection{
+    margin-bottom:1.5rem;
+}
 @media (max-width:850px){
     .buttonsection{
         margin-top:2.3rem;
@@ -27,5 +30,10 @@
 @media (max-width:600px){
     .buttonsection{
         margin-top:1.5rem;
+    }
+    .qsection{
+       
+        padding-left:8px;
+         
     }
 }

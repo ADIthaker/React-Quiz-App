@@ -5,7 +5,9 @@
     margin: 0 auto;
     margin-top:1rem;
     height: 50px;
-    width:82%;
+    width:85%;
     text-align: start;
     font-family: 'Raleway', sans-serif;
+    border-radius: 25px;
+    
 }
