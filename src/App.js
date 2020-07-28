@@ -1,16 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Qcard from './containers/Qcard/Qcard';
+import axios from 'axios';
+import {Route, withRouter} from 'react-router-dom';
+import Button from './components/Button/Button';
 
-function App() {
-  let questions = {"response_code":0,"results":[
-    {"category":"Science & Nature","type":"multiple","difficulty":"medium","question":"Along with Oxygen, which element is primarily responsible for the sky appearing blue?","correct_answer":"Nitrogen","incorrect_answers":["Helium","Carbon","Hydrogen"]},{"category":"Science & Nature","type":"multiple","difficulty":"medium","question":"The Axiom of Preventive Medicine states that people with ___ risk for a disease should be screened and we should treat ___ of those people.","correct_answer":"low, all","incorrect_answers":["low, some","high, all","high, some"]},{"category":"Science & Nature","type":"multiple","difficulty":"medium","question":"What is the chemical formula for ammonia?","correct_answer":"NH3","incorrect_answers":["CO2","NO3","CH4"]},{"category":"Science & Nature","type":"multiple","difficulty":"medium","question":"Which planet did the Viking 1 spacecraft send surface images of, starting in 1976?","correct_answer":"Mars","incorrect_answers":["Saturn","Jupiter","Venus"]},{"category":"Science & Nature","type":"multiple","difficulty":"medium","question":"Which of the following men does not have a chemical element named after him?","correct_answer":"Sir Isaac Newton","incorrect_answers":["Albert Einstein","Niels Bohr","Enrico Fermi"]}]};
-    console.log('in app.js')
+
+const authentication = {
+  userName :'',
+  state:false,
+};
+
+
+function App(props) {
+  let [initialAuth,setAuthentication] = useState(authentication);
+  let [quiz,setQuiz] = useState(null);
+  let [inputData,setinputData] = useState('');
+  let rotateArr = (arr)=>{
+    let n = Math.floor(Math.random()*3);
+    for(let i =0;i<n;i++){
+        let el = arr.pop();
+        arr.unshift(el);
+    }
+    return arr;
+}
+
+let qWithOpt = [],i=0;
+
+
+    
+  const nameChangeHandler = (event)=>{
+    
+    setinputData(event.target.value);
+  }
+  
+   const submitFormHandler= async (event)=>{
+     event.preventDefault();
+    
+     let url ='https://opentdb.com/api.php?amount=5&type=multiple';
+     setAuthentication({state:true,userName:inputData});
+     setQuiz(<h1>Loading...</h1>);
+     try{
+      let res = await axios.get(url);
+      let questions = await res.data;
+       for (let set of questions.results){
+       let options =[set.correct_answer,...set.incorrect_answers];
+       options=rotateArr(options,Math.floor(Math.random()*3));
+       qWithOpt.push({question:set.question,options:options,index:i++,selectedOpt:-1,correct_ans:options.indexOf(set.correct_answer)});
+       setQuiz(<Route path='/' exact render={()=><Qcard sets={qWithOpt} userName={inputData} />} />)
+       props.history.push('/');
+      }
+    }catch(e){
+      console.log(e);
+    } 
+    }
+let form = (
+    
+    <form onSubmit={submitFormHandler} className="authform">
+      <h3>Quiz App!</h3>
+      <div className="input-field"> 
+      
+      <input onChange={nameChangeHandler} value={inputData} placeholder="Username"/></div>
+      <Button type="submit" >Submit</Button>
+</form>);
+ 
+if (initialAuth.state){
+  form = null;
+}
   return (
+
     <div className="App">
-      <Qcard questions={questions.results}/>
+        {form}
+        {quiz}
+        
     </div>
+
+
   );
 }
 
-export default App;
+export default withRouter(App);

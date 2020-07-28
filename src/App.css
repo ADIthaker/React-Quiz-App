@@ -5,6 +5,31 @@
   height: 100%;
   text-align: center;
 }
+ .input-field {
+  display: block;
+  margin:5rem auto;
+  margin-bottom: 1rem;
+  width:80%;
+  height:50px;
+  
+}
+.input-field input{
+  display: block;
+  width: 90%;
+  outline:none;
+  border:none;
+  margin:0 auto;
+  border-bottom: 1px solid grey;
+  font-size:1.5rem;
+  font-family: 'Raleway', sans-serif;
+}
 
+.authform{
+  width:500px;
+  height: 300px;
+  border:2px solid black;
+  margin:auto;
+  margin-top:10rem;
+}
 
 

@@ -1,46 +1,54 @@
-import React,{useState,useEffect, Fragment,useMemo} from 'react';
+import React,{useState} from 'react';
 import './Qcard.css';
 import axios from '../../axios-config';
 import Qbox from '../Qbox/Qbox';
 import Button from '../../components/Button/Button';
-let rotateArr = (arr)=>{
-    let n = Math.floor(Math.random()+3);
-    for(let i =0;i<n+1;i++){
-        let el = arr.pop();
-        arr.unshift(el);
-    }
-    return arr;
-}
-const Qcard = props => {
-    let i=0;
-    let cards = useMemo(()=>props.questions.map(result=>{
-        let correct_ans = result.correct_answer;
-        let wrong_ans = result.incorrect_answers;
-        let options = rotateArr([correct_ans,...wrong_ans]);
-        return {
-            question:result.question,
-            options:options,
-            index:i++,
-        }
-    }));
-    
-    let [initialCard,setCard] = useState(cards[0]);
-    console.log(cards);
+import Option from '../../components/Option/Option';
 
+import Results from '../Results/Results';
+
+const Qcard = props => {
+  
+    let i=0; 
+    let cards = props.sets;
+    let [initialCard,setCard] = useState(cards[0]);
+    let [lastQ,setLastQ] = useState(initialCard.index-1);
+    let [Answers,setAnswer] = useState([-1,-1,-1,-1,-1]);
+    let [isSubmit,setSubmit] = useState(false)
+    
     let prevQuestionHandler = () => {
-        
+      
       setCard(prevCard=>{
-        console.log(prevCard.index-1);
           return cards[prevCard.index-1]
         });
+        setLastQ(prevQ=>{
+            return initialCard.index;
+        });
+    
+    
     }
      let nextQuestionHandler = () => {
         
         setCard(prevCard=>{
-            console.log(prevCard.index+1);
+            
            return cards[prevCard.index+1]
         });
+        setLastQ(prevQ=>{
+            return initialCard.index;
+        });
      }
+    let submitQuizHandler = (event)=>{
+        event.preventDefault();
+        let quizObj = [...cards];
+        quizObj.forEach(card=>{
+            card.selectedOpt=Answers[card.index];
+        });
+        console.log(quizObj,"from unmount");
+        axios.post('https://quizapp-fdbc7.firebaseio.com/quiz.json',quizObj)
+        .then(res=>{console.log(res);setSubmit(true)})
+        .catch(err=>console.log(err));
+    
+    }
     let prevButton,nextButton,submitButton=null;
     if(initialCard.index===0){
         prevButton=null;
@@ -49,22 +57,67 @@ const Qcard = props => {
     }
     if(initialCard.index===4){
         nextButton=null;
-        submitButton=<Button>Submit Quiz</Button>
+        submitButton=<Button click={submitQuizHandler}>Submit Quiz</Button>
     }else{
         nextButton= <Button click={nextQuestionHandler}>Next</Button> ;
-        
     }
+    
 
-    return(
-        
+    let qbox=(
         <div className="qcard">
-            <Qbox question={initialCard.question} options={initialCard.options} qno={initialCard.index} /> 
-           <div className="buttonsection">
-                {prevButton}
-                {nextButton}
-                {submitButton}     
-            </div> 
+    <Qbox 
+        question={initialCard.question} 
+        qno={initialCard.index} 
+        optSet={initialCard.selectedOption}
+        /> 
+     <div className="optsection">
+        {initialCard.options.map((q,i)=>{
+            if( i===Answers[initialCard.index]){
+                return <Option 
+                    key={i} 
+                    click={event=>{
+                       
+                        setAnswer(prevAns=>{
+                            
+                            let newAns = [...prevAns];
+                            newAns[initialCard.index]=i;
+                            return newAns;
+                        });
+                    }}
+                    selected>{q}</Option>
+            }else{
+                return <Option 
+                    key={i} 
+                    click={event=>{
+                        setAnswer(prevAns=>{
+                            
+                            let newAns = [...prevAns];
+                            newAns[initialCard.index]=i;
+                            return newAns;
+                        });
+                    }}>{q}</Option>
+            }
+          
+        })
+        }                
+    </div>
+   <div className="buttonsection">
+        {prevButton}
+        {nextButton}
+        {submitButton}     
+    </div> 
+    </div>
+    )
+    if(isSubmit){
+        
+       qbox= <Results username={props.userName} answerlist={Answers} cards={cards}  />
+    }
+    return(
+        <div>
+            {qbox}
         </div>
+            
+        
     );
 
 }

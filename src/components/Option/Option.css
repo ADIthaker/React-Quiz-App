@@ -8,6 +8,25 @@
     width:85%;
     text-align: start;
     font-family: 'Raleway', sans-serif;
+    border-radius: 25px; 
+}
+.option:hover{
+    cursor:pointer;
+    background-color: #bbb;
+    border: 2px solid black;
+}
+.selected{
+    border:none;
+    border: 2px solid #141289;
     border-radius: 25px;
-    
+}
+.wrong{
+    border:none;
+    border: 2px solid red;
+    border-radius: 25px;
+}
+.right{
+    border:none;
+    border: 2px solid greenyellow;
+    border-radius: 25px;
 }

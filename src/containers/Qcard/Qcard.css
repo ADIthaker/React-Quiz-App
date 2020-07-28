@@ -6,7 +6,7 @@
     width:800px;
     height:500px;
     margin:auto;
-    margin-top:10rem;
+    margin-top:5rem;
     padding:20px;
     border : 1px solid black;
     border-radius: 25px;  
@@ -18,6 +18,29 @@
     padding:0 30px;
     margin-top:1.1rem;
     
+}
+.linkbutton {
+    border:2px solid #013a19;
+    width:120px;
+    height: 50px;
+    border-radius: 5px;
+    margin:auto;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    outline:none;
+    margin-top: 2rem ;
+    margin-bottom:2rem;
+    padding:12px;
+    
+}
+.linkbutton:hover{
+    background-color: #aaa;
+    cursor: pointer;
+}
+.linkbutton a{
+    text-decoration: none;
+    color: black;
+
 }
 @media (max-width:850px){
     .qcard{
