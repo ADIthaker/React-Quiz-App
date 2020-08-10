@@ -1,5 +1,6 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './Qcard.css';
+
 import axios from '../../axios-config';
 import Qbox from '../Qbox/Qbox';
 import Button from '../../components/Button/Button';
@@ -8,7 +9,7 @@ import Option from '../../components/Option/Option';
 import Results from '../Results/Results';
 
 const Qcard = props => {
-  
+   
     let i=0; 
     let cards = props.sets;
     let [initialCard,setCard] = useState(cards[0]);

@@ -3,14 +3,16 @@
     width:120px;
     height: 50px;
     border-radius: 5px;
-    margin:auto;
+    margin: 1rem auto;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     outline:none;
+    margin-bottom: 1rem;
+    background-color:rgba(248,188,165,0.8);
 }
 .button:hover{
     cursor: pointer;
-    background-color:#aaa;
+    background-color:rgba(248,188,165,1);
 }
 @media (max-width:600px){
     .button{

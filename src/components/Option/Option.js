@@ -13,9 +13,12 @@ const Option = props => {
     if(props.right===true){
         optionClass ="option right"
     }
+    if(props.result){
+        optionClass = "none"
+    }
     
     return(
-        <div className={optionClass} onClick={props.click}>
+        <div className={optionClass} onClick={props.click} >
             {props.children}
         </div>
     )

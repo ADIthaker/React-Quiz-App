@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { RotateSpinner } from "react-spinners-kit";
 import Qcard from './containers/Qcard/Qcard';
 import axios from 'axios';
 import {Route, withRouter} from 'react-router-dom';
@@ -39,7 +40,7 @@ let qWithOpt = [],i=0;
     
      let url ='https://opentdb.com/api.php?amount=5&type=multiple';
      setAuthentication({state:true,userName:inputData});
-     setQuiz(<h1>Loading...</h1>);
+     setQuiz(<div className ="centered"><RotateSpinner color="rgb(217,93,48)" size={100}/></div>);
      try{
       let res = await axios.get(url);
       let questions = await res.data;

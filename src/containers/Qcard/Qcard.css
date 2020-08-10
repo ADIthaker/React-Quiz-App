@@ -4,10 +4,11 @@
 }
 .qcard{
     width:800px;
-    height:500px;
+    height:520px;
     margin:auto;
     margin-top:5rem;
     padding:20px;
+    background-color:rgb(231,111,81); 
     border : 1px solid black;
     border-radius: 25px;  
 }

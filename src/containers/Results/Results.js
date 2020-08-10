@@ -24,11 +24,11 @@ const Results = props=>{
     return (
     
        <div>
-          <h1 style={{marginTop:"2.5rem",fontFamily:'Playfair Display',}}>{props.username} you scored {cnt} points!!</h1>
+          <h1 style={{marginTop:"2.5rem",fontFamily:'Open Sans',color:'whitesmoke'}}>{props.username.charAt(0).toUpperCase()+props.username.substr(1,props.username.length-1)} you scored {cnt} points!!</h1>
            {q.map((eq)=>{
                let opSet=eq.options.map((option,i)=>{
                     if(i!==eq.correct_index && i!==eq.selected_index){
-                        return <Option key={i} >{option}</Option>
+                        return <Option key={i} result >{option}</Option>
                     }else if(i===eq.correct_index){
                         return <Option key={i} right>{option}</Option>
                     }else if(i===eq.selected_index && eq.selected_index!==eq.correct_index){

@@ -1,32 +1,51 @@
 
 .option{
-    border: 2px solid #bbb;
+    border: 2px solid rgba(20,20,20,0.5);
     padding: 12px 16px;
     margin: 0 auto;
     margin-top:1rem;
     height: 50px;
     width:85%;
+    background-color: rgb(244,162,97);
     text-align: start;
     font-family: 'Raleway', sans-serif;
-    border-radius: 25px; 
+    border-radius: 28px; 
+    transform : scale(1);
+    transition: transform 125ms linear,border 125ms linear;
+    color:white;
 }
 .option:hover{
     cursor:pointer;
-    background-color: #bbb;
+    transform:scale(1.02);
     border: 2px solid black;
 }
+.none{
+    border: 2px solid rgba(20,20,20,0.5);
+    padding: 12px 16px;
+    margin: 0 auto;
+    margin-top:1rem;
+    height: 50px;
+    width:85%;
+    background-color: rgb(244,162,97);
+    text-align: start;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 28px; 
+    color:black;
+}
 .selected{
-    border:none;
-    border: 2px solid #141289;
-    border-radius: 25px;
+    border: 2px solid black;
+    background-color:rgb(233,196,106) ;
+    border-radius: 28px;
 }
 .wrong{
-    border:none;
-    border: 2px solid red;
+    border: 2px solid black;
+    background-color: rgb(189,34,37);
     border-radius: 25px;
+    transform : scale(1.02);
 }
 .right{
-    border:none;
-    border: 2px solid greenyellow;
+    border: 2px solid black;
+    background-color: rgb(99,171,49);
     border-radius: 25px;
+    transform : scale(1.02);
 }
